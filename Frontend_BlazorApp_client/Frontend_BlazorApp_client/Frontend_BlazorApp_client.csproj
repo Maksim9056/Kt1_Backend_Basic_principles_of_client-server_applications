@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Kt1_Backend_Basic_principles_of_client-server_applications\Kt1_Backend_Basic_principles_of_client-server_applications.csproj" />
+    <ProjectReference Include="..\Frontend_BlazorApp_client.Client\Frontend_BlazorApp_client.Client.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
+  </ItemGroup>
+
+</Project>

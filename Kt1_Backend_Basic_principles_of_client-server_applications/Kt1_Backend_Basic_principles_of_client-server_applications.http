@@ -1,0 +1,6 @@
+@Kt1_Backend_Basic_principles_of_client_server_applications_HostAddress = http://localhost:5157
+
+GET {{Kt1_Backend_Basic_principles_of_client_server_applications_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

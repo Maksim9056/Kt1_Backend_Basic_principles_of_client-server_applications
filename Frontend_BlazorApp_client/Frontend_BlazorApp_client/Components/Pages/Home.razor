@@ -1,0 +1,79 @@
+﻿@page "/"
+@using Kt1_Backend_Basic_principles_of_client_server_applications.Model
+@inject HttpClient Http
+@rendermode InteractiveServer
+
+
+<input @bind="user.Id" placeholder="Введите Id..." />
+<input @bind="user.Name" placeholder="Введите  имя..." />
+
+<input @bind="user.Password" placeholder="Введите пароль..." />
+<button @onclick="SayHelloREST">Создать пользователя </button>
+@if (!string.IsNullOrEmpty(responseMessageRestapi))
+{
+    <p>@responseMessageRestapi</p>
+    
+}
+<button @onclick="SayHelloRESTGet">Получить список пользователей</button>
+<ul> 
+@foreach (var IN in users)
+{
+        <li>@IN.Id </li>
+        <li>@IN.Name </li>
+        <li>@IN.Password </li>
+
+}
+</ul>
+@code {
+    private User user = new User();
+
+    string responseMessageRestapi;
+    List<User> users = new List<User>();
+    private async Task SayHelloRESTGet()
+    {
+        try
+        {
+            var answer = await Http.GetFromJsonAsync<List<User>>($"https://localhost:7053/Users/getusers");
+            if (answer == null)
+            {
+
+            }
+            else
+            {
+                users = answer;
+
+            }
+
+        }
+        catch (Exception)
+        {
+
+        }
+    }
+    private async Task SayHelloREST()
+    {
+        try
+        {
+
+            var answer = await Http.PostAsJsonAsync<User>($"https://localhost:7053/Users", user);
+
+            // Проверяем, успешен ли ответ
+            if (answer.IsSuccessStatusCode)
+            {
+                // Читаем содержимое ответа как строку
+                responseMessageRestapi = await answer.Content.ReadAsStringAsync();
+
+            }
+            else
+            {
+                // Обрабатываем ошибку, если ответ неуспешен
+                throw new Exception($"Ошибка: {  answer.StatusCode}");
+            }
+
+        }
+        catch (Exception)
+        {
+
+        }
+    }
+}
